@@ -42,13 +42,13 @@ public class CategorieRessource extends AbstractFacade<Categorie> {
     }
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public List<Categorie> list() {
         return super.findAll();
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({"application/json"})
     @Override
     public void create(Categorie c) {
         String output = "POST:Jersey say : ";
@@ -58,14 +58,14 @@ public class CategorieRessource extends AbstractFacade<Categorie> {
     
     @GET
     @Path("/{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public Categorie listbyId(@PathParam("id") Long id) {
         return super.find(id);
     }
     
     @PUT
     @Path("/{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({"application/json"})
     public void update(@PathParam("id") Long id, Categorie c){
         Categorie ct = super.find(id);
         if(ct != null){
@@ -88,7 +88,7 @@ public class CategorieRessource extends AbstractFacade<Categorie> {
     
     @GET
     @Path("/{min}/{max}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public List<Categorie> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
         return super.findRange(new int[]{min, max});
     }

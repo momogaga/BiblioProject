@@ -20,8 +20,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 @NamedQuery(
-    name="findByCategory",
-    query="SELECT c FROM Livre c WHERE c.categorie = :categorie"
+    name="findLivreByCat",
+    query="SELECT l FROM Livre l WHERE l.categorie = :categorie"
 )
 public class Livre implements Serializable {
     private static final long serialVersionUID = 1L;

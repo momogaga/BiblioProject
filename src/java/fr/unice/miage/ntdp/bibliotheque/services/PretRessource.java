@@ -41,28 +41,28 @@ public class PretRessource extends AbstractFacade<Pret> {
     }
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public List<Pret> list() {
         return super.findAll();
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({"application/json"})
     @Override
     public void create(Pret p) {
         super.create(p);
     }
     
     @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    @Path("/{id}")
+    @Produces({"application/json"})
     public Pret listbyId(@PathParam("id") Long id) {
         return super.find(id);
     }
     
     @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Path("/{id}")
+    @Consumes({"application/json"})
     public void update(@PathParam("id") Long id, Pret p){
         Pret pt = super.find(id);
         if(pt != null){
@@ -71,7 +71,7 @@ public class PretRessource extends AbstractFacade<Pret> {
     }
     
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Consumes("text/plain")
     public void remove(@PathParam("id") Long id) {
         Pret p = super.find(id);
@@ -80,15 +80,15 @@ public class PretRessource extends AbstractFacade<Pret> {
     }
     
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
     
     @GET
-    @Path("{min}/{max}")
-    @Produces({"application/xml", "application/json"})
+    @Path("/{min}/{max}")
+    @Produces({"application/json"})
     public List<Pret> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
         return super.findRange(new int[]{min, max});
     }

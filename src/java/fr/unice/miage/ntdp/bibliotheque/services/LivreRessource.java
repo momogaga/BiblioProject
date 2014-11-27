@@ -47,28 +47,28 @@ public class LivreRessource extends AbstractFacade<Livre> {
     }
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public List<Livre> list() {
         return super.findAll();
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({"application/json"})
     @Override
     public void create(Livre l) {
         super.create(l);
     }
     
     @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    @Path("/{id}")
+    @Produces({"application/json"})
     public Livre listbyId(@PathParam("id") Long id) {
         return super.find(id);
     }
     
     @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Path("/{id}")
+    @Consumes({"application/json"})
     public void update(@PathParam("id") Long id, Livre l){
         Livre lt = super.find(id);
         if(lt != null){
@@ -77,7 +77,7 @@ public class LivreRessource extends AbstractFacade<Livre> {
     }
     
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Consumes("text/plain")
     public void remove(@PathParam("id") Long id) {
         Livre l = super.find(id);
@@ -86,26 +86,26 @@ public class LivreRessource extends AbstractFacade<Livre> {
     }
     
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
     
     @GET
-    @Path("{min}/{max}")
-    @Produces({"application/xml", "application/json"})
+    @Path("/{min}/{max}")
+    @Produces({"application/json"})
     public List<Livre> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
         return super.findRange(new int[]{min, max});
     }
     
     @GET
-    @Path("categorie/{id}")
-    @Produces({"application/xml", "application/json"})
-    public List<Livre> findLivreByCat(@PathParam("{id}") Long id){
+    @Path("/categorie/{id}")
+    @Produces({"application/json"})
+    public List<Livre> findLivreByCat(@PathParam("{id}") Long id){   
+        Query q = em.createNamedQuery("findLivreByCat");
         Categorie c = categorieRessource.find(id);
-        Query namedQuery = em.createNamedQuery("findByCategory");
-        namedQuery.setParameter("categorie",c); 
-        return namedQuery.getResultList();
+        q.setParameter("categorie",c); 
+        return q.getResultList();
     }
 }

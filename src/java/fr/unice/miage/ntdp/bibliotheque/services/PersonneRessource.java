@@ -5,7 +5,7 @@
  */
 package fr.unice.miage.ntdp.bibliotheque.services;
 
-import fr.unice.miage.ntdp.bibliotheque.Auteur;
+import fr.unice.miage.ntdp.bibliotheque.Personne;
 import fr.unice.miage.ntdp.bibliotheque.bean.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -24,9 +24,9 @@ import javax.ws.rs.Produces;
  *
  * @author MoMo
  */
-@Path("auteur")
+@Path("personne")
 @Stateless
-public class AuteurRessource extends AbstractFacade<Auteur> {
+public class PersonneRessource extends AbstractFacade<Personne> {
 
     @PersistenceContext(unitName = "BibliothequePU")
     private EntityManager em;
@@ -36,60 +36,60 @@ public class AuteurRessource extends AbstractFacade<Auteur> {
         return em;
     }
         
-    public AuteurRessource() {
-        super(Auteur.class);
+    public PersonneRessource() {
+        super(Personne.class);
     }
 
     @GET
-    @Produces({"application/xml", "application/json"})
-    public List<Auteur> list() {
+    @Produces({"application/json"})
+    public List<Personne> list() {
         return super.findAll();
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({"application/json"})
     @Override
-    public void create(Auteur a) {
-        super.create(a);
+    public void create(Personne p) {
+        super.create(p);
     }
     
     @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public Auteur listbyId(@PathParam("id") Long id) {
+    @Path("/{id}")
+    @Produces({"application/json"})
+    public Personne listbyId(@PathParam("id") Long id) {
         return super.find(id);
     }
     
     @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void update(@PathParam("id") Long id, Auteur a){
-        Auteur at = super.find(id);
-        if(at != null){
-            super.edit(a);
+    @Path("/{id}")
+    @Consumes({"application/json"})
+    public void update(@PathParam("id") Long id, Personne p){
+        Personne pt = super.find(id);
+        if(pt != null){
+            super.edit(p);
         }
     }
     
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Consumes("text/plain")
     public void remove(@PathParam("id") Long id) {
-        Auteur a = super.find(id);
+        Personne a = super.find(id);
         System.out.println(a.getId());
         super.remove(a);
     }
     
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
     
     @GET
-    @Path("{min}/{max}")
-    @Produces({"application/xml", "application/json"})
-    public List<Auteur> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
+    @Path("/{min}/{max}")
+    @Produces({"application/json"})
+    public List<Personne> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
         return super.findRange(new int[]{min, max});
     }
 }
