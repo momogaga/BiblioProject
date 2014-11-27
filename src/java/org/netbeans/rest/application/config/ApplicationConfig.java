@@ -37,7 +37,11 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(fr.unice.miage.ntdp.bibliotheque.services.AuteurRessource.class);
         resources.add(fr.unice.miage.ntdp.bibliotheque.services.CategorieRessource.class);
+        resources.add(fr.unice.miage.ntdp.bibliotheque.services.LivreRessource.class);
+        resources.add(fr.unice.miage.ntdp.bibliotheque.services.PretRessource.class);
+        resources.add(fr.unice.miage.ntdp.bibliotheque.services.UsersRessource.class);
     }
     
 }

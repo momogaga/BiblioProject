@@ -5,7 +5,7 @@
  */
 package fr.unice.miage.ntdp.bibliotheque.services;
 
-import fr.unice.miage.ntdp.bibliotheque.Categorie;
+import fr.unice.miage.ntdp.bibliotheque.Auteur;
 import fr.unice.miage.ntdp.bibliotheque.bean.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -19,15 +19,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
  * @author MoMo
  */
-@Path("categorie")
+@Path("auteur")
 @Stateless
-public class CategorieRessource extends AbstractFacade<Categorie> {
+public class AuteurRessource extends AbstractFacade<Auteur> {
 
     @PersistenceContext(unitName = "BibliothequePU")
     private EntityManager em;
@@ -37,59 +36,60 @@ public class CategorieRessource extends AbstractFacade<Categorie> {
         return em;
     }
         
-    public CategorieRessource() {
-        super(Categorie.class);
+    public AuteurRessource() {
+        super(Auteur.class);
     }
 
     @GET
     @Produces({"application/xml", "application/json"})
-    public List<Categorie> list() {
+    public List<Auteur> list() {
         return super.findAll();
     }
 
     @POST
     @Consumes({"application/xml", "application/json"})
     @Override
-    public void create(Categorie c) {
-        String output = "POST:Jersey say : ";
-        Response.status(204).entity(output).build();
-        super.create(c);
+    public void create(Auteur a) {
+        super.create(a);
     }
     
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Categorie listbyId(@PathParam("id") Long id) {
+    public Auteur listbyId(@PathParam("id") Long id) {
         return super.find(id);
     }
     
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void update(@PathParam("id") Long id, Categorie c){
-        Categorie ct = super.find(id);
-        if(ct != null){
-            super.edit(c);
+    public void update(@PathParam("id") Long id, Auteur a){
+        Auteur at = super.find(id);
+        if(at != null){
+            super.edit(a);
         }
     }
     
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
+    @Consumes("text/plain")
     public void remove(@PathParam("id") Long id) {
-        super.remove(super.find(id));
+        Auteur a = super.find(id);
+        System.out.println(a.getId());
+        super.remove(a);
     }
     
     @GET
-    @Path("/count")
+    @Path("count")
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
     
     @GET
-    @Path("/{min}/{max}")
+    @Path("{min}/{max}")
     @Produces({"application/xml", "application/json"})
-    public List<Categorie> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
+    public List<Auteur> findByRange(@PathParam("min") Integer min, @PathParam("max") Integer max) {
         return super.findRange(new int[]{min, max});
     }
 }
