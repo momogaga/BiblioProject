@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,6 +24,7 @@ import javax.persistence.Temporal;
     name="findLivreByCat",
     query="SELECT l FROM Livre l WHERE l.categorie = :categorie"
 )
+@XmlRootElement
 public class Livre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
