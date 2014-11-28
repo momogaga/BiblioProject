@@ -5,6 +5,7 @@
  */
 package fr.unice.miage.ntdp.bibliotheque.services;
 
+import fr.unice.miage.ntdp.bibliotheque.AccountStatus;
 import fr.unice.miage.ntdp.bibliotheque.Users;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -80,6 +81,18 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
+    }
+
+    @PUT
+    @Path("{id}/statutcompte/{statutcompte}")
+    @Produces({"application/json"})
+    public Users setStatus(@PathParam("statutcompte") Integer statutcompte, @PathParam("id") Long id) {
+
+        Users user = super.find(id);
+        //Le statut compte à mettre est soit 1 pour ACTIF ou 2 pour BLOQUE, par défault on a 0 pour ATTENTE 
+        user.setStatutCompte(AccountStatus.values()[statutcompte]);
+
+        return user;
     }
 
     @Override

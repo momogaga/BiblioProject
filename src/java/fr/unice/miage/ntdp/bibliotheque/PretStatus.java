@@ -9,7 +9,7 @@ package fr.unice.miage.ntdp.bibliotheque;
  * @author edou
  */
 public enum PretStatus {
-    ENATTENTE (0), 
+    ENATTENTE(0), 
     VALIDE(1), 
     REMIS(2); 
 

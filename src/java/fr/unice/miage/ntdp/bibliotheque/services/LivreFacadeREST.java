@@ -30,9 +30,6 @@ import javax.ws.rs.Produces;
 @Path("livre")
 public class LivreFacadeREST extends AbstractFacade<Livre> {
 
-    @EJB
-    CategorieFacadeREST categorieressource;
-
     @PersistenceContext(unitName = "BibliothequePU")
     private EntityManager em;
 
@@ -89,12 +86,13 @@ public class LivreFacadeREST extends AbstractFacade<Livre> {
     }
 
     @GET
-    @Path("/categorie/{id}")
+    @Path("search/{id}")
     @Produces({"application/json"})
-    public List<Livre> findLivreByCat(@PathParam("{id}") Long id) {
+    public List<Livre> findLivreByCat(@PathParam("id") long id) {
+      
         Query q = em.createNamedQuery("findLivreByCat");
-        Categorie c = categorieressource.find(id);
-        q.setParameter("categorie", c);
+        System.out.println(id);
+        q.setParameter("categorie", id);
         return q.getResultList();
     }
 

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @NamedQuery(
     name="findLivreByCat",
-    query="SELECT l FROM Livre l WHERE l.categorie = :categorie"
+    query="SELECT l FROM Livre l WHERE l.categorie.id = :categorie"
 )
 @XmlRootElement
 public class Livre implements Serializable {

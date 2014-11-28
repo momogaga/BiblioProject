@@ -7,10 +7,14 @@ package fr.unice.miage.ntdp.bibliotheque;
 import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,6 +22,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author edou
  */
 @Entity
+@NamedQueries({
+@NamedQuery(
+    name="findPretByLivre",
+    query="SELECT p FROM Pret p WHERE p.livre.id = :livre"
+),
+@NamedQuery(
+    name="findPretByUser",
+    query="SELECT p FROM Pret p WHERE p.user.id = :user"
+),
+})
 @XmlRootElement
 public class Pret implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -30,7 +44,8 @@ public class Pret implements Serializable {
     private Users user; 
     private Date debut; 
     private int Duree; 
-
+    private PretStatus statutPret;
+    
     public Long getId() {
         return id;
     }
@@ -97,6 +112,11 @@ public class Pret implements Serializable {
         this.Duree = Duree;
     }
 
-   
-    
+    public PretStatus getStatutPret() {
+        return statutPret;
+    }
+
+    public void setStatutPret(PretStatus statutPret) {
+        this.statutPret = statutPret;
+    }
 }

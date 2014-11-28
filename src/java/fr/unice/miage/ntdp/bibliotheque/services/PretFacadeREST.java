@@ -6,10 +6,12 @@
 package fr.unice.miage.ntdp.bibliotheque.services;
 
 import fr.unice.miage.ntdp.bibliotheque.Pret;
+import fr.unice.miage.ntdp.bibliotheque.PretStatus;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -82,9 +84,38 @@ public class PretFacadeREST extends AbstractFacade<Pret> {
         return String.valueOf(super.count());
     }
 
+    @GET
+    @Path("livre/{id}")
+    @Produces({"application/json"})
+    public List<Pret> findPretByLivre(@PathParam("id") Long id) {
+
+        Query q = em.createNamedQuery("findPretByLivre");
+        q.setParameter("livre", id);
+        return q.getResultList();
+    }
+
+    @GET
+    @Path("user/{id}")
+    @Produces({"application/json"})
+    public List<Pret> findPretByUser(@PathParam("id") Long id) {
+
+        Query q = em.createNamedQuery("findPretByUser");
+        q.setParameter("user", id);
+        return q.getResultList();
+    }
+
+    @PUT
+    @Path("{id}/statutpret/{statut}")
+    @Produces({"application/json"})
+    public Pret setStatut(@PathParam("statutpret") Integer statutpret, @PathParam("id") Long id) {
+        Pret pret = super.find(id);
+        pret.setStatutPret(PretStatus.values()[statutpret]);
+
+        return pret;
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
 }
