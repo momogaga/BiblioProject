@@ -88,11 +88,11 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Produces({"application/json"})
     public Users setStatus(@PathParam("statutcompte") Integer statutcompte, @PathParam("id") Long id) {
 
-        Users user = super.find(id);
+        Users u = super.find(id);
         //Le statut compte à mettre est soit 1 pour ACTIF ou 2 pour BLOQUE, par défault on a 0 pour ATTENTE 
-        user.setStatutCompte(AccountStatus.values()[statutcompte]);
+        u.setStatutCompte(AccountStatus.values()[statutcompte]);
 
-        return user;
+        return u;
     }
 
     @Override

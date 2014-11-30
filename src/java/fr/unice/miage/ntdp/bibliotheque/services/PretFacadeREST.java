@@ -105,13 +105,14 @@ public class PretFacadeREST extends AbstractFacade<Pret> {
     }
 
     @PUT
-    @Path("{id}/statutpret/{statut}")
+    @Path("{id}/statutpret/{statutpret}")
     @Produces({"application/json"})
-    public Pret setStatut(@PathParam("statutpret") Integer statutpret, @PathParam("id") Long id) {
-        Pret pret = super.find(id);
-        pret.setStatutPret(PretStatus.values()[statutpret]);
+    public Pret setStatus(@PathParam("statutpret") Integer statutpret, @PathParam("id") Long id) {
 
-        return pret;
+        Pret p = super.find(id);
+        p.setStatutPret(PretStatus.values()[statutpret]);
+
+        return p;
     }
 
     @Override
