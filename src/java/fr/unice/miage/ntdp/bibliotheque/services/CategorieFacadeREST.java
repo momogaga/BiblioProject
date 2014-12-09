@@ -66,11 +66,26 @@ public class CategorieFacadeREST extends AbstractFacade<Categorie> {
     }
 
     @GET
-    @Override
     @Produces({"application/json"})
-    public List<Categorie> findAll() {
-        return super.findAll();
+    public Message list() {
+        Message<List> mess = new Message<List>();
+        List<Categorie> data = super.findAll();
+
+        mess.data = data;
+        if (mess.data.isEmpty()) {
+            mess.status = false;
+            mess.message = "Liste vide";
+        } else {
+            mess.status = true;
+            mess.message = "Liste ok";
+        }
+        return mess;
     }
+//    @GET
+//    @Produces({"application/json"})
+//    public List<Categorie> list() {
+//        return super.findAll();
+//    }
 
     @GET
     @Path("{from}/{to}")

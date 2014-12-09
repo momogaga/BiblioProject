@@ -18,23 +18,21 @@ public class ApplicationConfig extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
-        /*
+
         try {
             Class jsonProvider = Class.forName("org.glassfish.jersey.jackson.JacksonFeature");
             resources.add(jsonProvider);
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }*/
+        }
         addRestResourceClasses(resources);
         return resources;
     }
 
     /**
-     * Do not modify addRestResourceClasses() method.
-     * It is automatically populated with
-     * all resources defined in the project.
-     * If required, comment out calling this method in getClasses().
+     * Do not modify addRestResourceClasses() method. It is automatically
+     * populated with all resources defined in the project. If required, comment
+     * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(fr.unice.miage.ntdp.bibliotheque.services.AuteurFacadeREST.class);
@@ -45,5 +43,5 @@ public class ApplicationConfig extends Application {
         resources.add(fr.unice.miage.ntdp.bibliotheque.services.UsersFacadeREST.class);
         resources.add(org.netbeans.rest.application.config.CrossOriginResourceSharingFilter.class);
     }
-    
+
 }
