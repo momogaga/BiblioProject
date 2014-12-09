@@ -29,6 +29,7 @@ public class Users extends Personne implements Serializable {
     private AccountStatus statutCompte; 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date derniereConnexion; 
+    private int authorizationKey;  
     
     @Override
     public int hashCode() {
@@ -86,5 +87,12 @@ public class Users extends Personne implements Serializable {
     public void setStatutCompte(AccountStatus statutCompte) {
         this.statutCompte = statutCompte;
     }
-    
+
+    public int getAuthorizationKey() {
+        return authorizationKey;
+    }
+
+    public void setAuthorizationKey(int authorizationKey) {
+        this.authorizationKey = authorizationKey;
+    }
 }
