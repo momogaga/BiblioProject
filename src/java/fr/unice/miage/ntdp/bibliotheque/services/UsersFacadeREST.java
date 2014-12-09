@@ -6,11 +6,13 @@
 package fr.unice.miage.ntdp.bibliotheque.services;
 
 import fr.unice.miage.ntdp.bibliotheque.AccountStatus;
+import fr.unice.miage.ntdp.bibliotheque.Livre;
 import fr.unice.miage.ntdp.bibliotheque.Users;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -60,6 +62,26 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Produces({"application/json"})
     public Users find(@PathParam("id") Long id) {
         return super.find(id);
+    }
+
+    //get sur user / mdp
+    @GET
+    @Path("/check/{user}/{mdp}")
+    @Produces("text/html")
+    public String findLivreByCat(@PathParam("user") String user, @PathParam("mdp") String mdp) {
+
+        System.out.println("######### user :   " + user);
+        System.out.println("######### mdp :   " + mdp);
+
+        Query q = em.createNamedQuery("findUserByUsernameAndPassword");
+        q.setParameter("nomUtilisateur", user);
+        q.setParameter("motDePasse", mdp);
+
+        if (q.getResultList().isEmpty()) {
+            return "ko";
+        } else {
+            return "ok";
+        }
     }
 
     @GET
