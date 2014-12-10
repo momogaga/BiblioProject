@@ -8,6 +8,7 @@ package fr.unice.miage.ntdp.bibliotheque.services;
 import fr.unice.miage.ntdp.bibliotheque.AccountStatus;
 import fr.unice.miage.ntdp.bibliotheque.Livre;
 import fr.unice.miage.ntdp.bibliotheque.Users;
+import fr.unice.miage.ntdp.bibliotheque.client.util.Util;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,12 +16,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -84,6 +87,39 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         }
     }
 
+    //post sur user / mdp
+    @POST
+    @Path("/check")
+    @Produces({"application/json"})
+    public Object findLivreByCategory(@FormParam("user") String user, @FormParam("mdp") String mdp) {
+
+        Query q = em.createNamedQuery("findUserByUsernameAndPassword");
+
+        q.setParameter("nomUtilisateur", user);
+        q.setParameter("motDePasse", mdp);
+
+        if (q.getResultList().isEmpty()) {
+            return null;
+        } else {
+            Users u = (Users) q.getSingleResult();
+            u.setAuthorizationKey(Util.randInt(10000, 99999));
+            return u;
+        }
+    }
+
+    //TEST
+//
+//    @POST
+//    @Path("/test")
+//    public Response addUser(
+//            @FormParam("name") String name,
+//            @FormParam("age") int age) {
+//
+//        return Response.status(200)
+//                .entity("addUser is called, name : " + name + ", age : " + age)
+//                .build();
+//
+//    }
     @GET
     @Override
     @Produces({"application/json"})
